@@ -34,7 +34,7 @@ jobs:
 
       - name: run application
         run: |
-          la -a
+          ls -a
           pm2 status
 
           #delete node-app process
