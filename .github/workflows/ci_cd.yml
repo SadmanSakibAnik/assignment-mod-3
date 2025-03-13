@@ -36,12 +36,12 @@ jobs:
         run: |
           ls -a
           pm2 status
-
+          
           #delete node-app process
           pm2 delete node-app || true
-
-          #create a background process named node-app
+          
+          #create background process named node-app
           pm2 start "npm start" --name="node-app"
 
-          #save the process list
+          #save the process
           pm2 save
