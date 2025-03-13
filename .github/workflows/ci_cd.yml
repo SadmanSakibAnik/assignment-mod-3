@@ -21,13 +21,49 @@ jobs:
       - name: test the application
         run: npm run check
 
-  deploy:
+
+  build:
     needs: test
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: install node js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      
+      - name: create artifact
+        run: |
+          mkdir build
+          cd build
+          echo "DevOps world" > DevOps.txt
+        
+      - name: upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build_folder
+          path: ./build
+
+
+  deploy:
+    needs: build
     runs-on: self-hosted
     steps:
 
       - name: chekout
         uses: actions/checkout@v3
+
+      - name: receive artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build_folder
+      
+      - name: show artifact
+        run: |
+          ls -a
 
       - name: install the package
         run: npm install
