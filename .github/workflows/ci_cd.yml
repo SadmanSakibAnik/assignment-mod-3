@@ -23,7 +23,7 @@ jobs:
 
   deploy:
     needs: test
-    runss-on: self-hosted
+    runs-on: self-hosted
     steps:
 
       - name: chekout
